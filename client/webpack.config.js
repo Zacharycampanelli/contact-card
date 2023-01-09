@@ -1,5 +1,8 @@
-const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
+
+const path = require('path');
 
 module.exports = {
   mode: 'development',
@@ -8,12 +11,14 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './index.html',
-      title: 'Webpack Plugin'
-    })
-  ],
+
+plugins: [
+  new HtmlWebpackPlugin({
+    template: './index.html',
+    title: 'Webpack Plugin',
+  }),
+  new WorkboxPlugin.GenerateSW()
+    ],
   module: {
     rules: [
       {
