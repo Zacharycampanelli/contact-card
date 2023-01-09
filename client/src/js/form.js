@@ -1,7 +1,10 @@
 const form = document.getElementById("formToggle");
 console.log(form);
+const name = document.getElementById("name");
+const phone = document.getElementById("phone");
+const email = document.getElementById("email");
 
-const toggleForm = () => {
+export const toggleForm = () => {
   if (form.style.display === "none") {
     form.style.display = "block";
   } else {
@@ -9,8 +12,8 @@ const toggleForm = () => {
   }
 }
 
-const newContactButton = document.getElementById("new-contact");
-
-newContactButton.addEventListener('click', event => {
- toggleForm()
-})
+export const clearForm = () => {
+  name.value = "";
+  phone.value = "";
+  email.value = "";
+}
