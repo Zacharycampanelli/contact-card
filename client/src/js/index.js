@@ -12,6 +12,8 @@ import Logo from '../images/logo.png';
 import Bear from '../images/bear.png';
 import Dog from '../images/dog.png';
 
+const installBtn = document.getElementById('installBtn');
+
 window.addEventListener('load', function () {
   initdb();
   fetchCards();
@@ -48,7 +50,7 @@ form.addEventListener('submit', (event) => {
     let phone = document.getElementById('phone').value;
     let email = document.getElementById('email').value;
     let profile = document.querySelector('input[type="radio"]:checked').value;
-    
+
     // Calls the editDB function passing in any values from the form element as well as the ID of the contact that we are updating
     editDb(profileId, name, email, phone, profile);
 
@@ -97,5 +99,20 @@ if ('serviceWorker' in navigator) {
   // Use the window load event to keep the page load performant
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./service-worker.js');
-  })
+  });
 }
+
+window.addEventListener('beforeinstallprompt', (event) => {
+  event.preventDefault();
+  installBtn.style.visibility = 'visible';
+
+  installBtn.addEventListener('click', () => {
+    event.prompt();
+    installBtn.setAttribute('disabled', true);
+    installBtn.textContent = 'Installed!';
+  });
+});
+
+window.addEventListener('appinstalled', (event) => {
+  console.log('👍', 'appinstalled', event);
+});
